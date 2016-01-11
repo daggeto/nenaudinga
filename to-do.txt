@@ -1,0 +1,8 @@
+Zrobic stronica multi-language, zeby text ladowaloby z bundlow.
+Przymyslec jak bedo sprawdzac sie teksty.
+Dobawic kategorii.
+Przetlumaczyc regulamin.
+Dobawic mozliwosc ustawienia jezyku.
+Wysylanie potwierdzenia na e-mail.
+Dobawic fb like button i share
+Dobawic nazwa stronic do tytulu
