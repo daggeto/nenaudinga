@@ -13,7 +13,7 @@
 		<td>
 			<input class="pole" type="text" name="login">
 		</td>
-	</tr> 
+	</tr>
 	<tr>
 		<td><?php echo $content->getValue("rejestracja", "haslo"); ?>:</td>
 		<td>

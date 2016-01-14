@@ -1,6 +1,6 @@
 <?php
 ob_start();
-require_once('connect.php');
+require_once('bootstrap.php');
 require_once('include/module/conf.class.php');
 require_once('include/module/user.class.php');
 require_once('include/module/Content.class.php');
