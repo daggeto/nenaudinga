@@ -8,11 +8,11 @@ require_once('include/module/Content.class.php');
 require_once('include/module/dett.php');
 
 	$conf = new conf();
-	$conf->query(mysql_query("SELECT * FROM `".TB_CONF."` WHERE `id`='1'"));
+	$conf->query(mysqli_query($db, "SELECT * FROM `".TB_CONF."` WHERE `id`='1'"));
 	
-        $obj = new glowna();
+        $obj = new glowna($db);
 
-        $user = new user();
+        $user = new user($db);
 	$user->sessionName('login','password');
 	
 	$theme = $conf->pobierz("theme");

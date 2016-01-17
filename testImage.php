@@ -11,11 +11,11 @@ require_once('include/module/Content.class.php');
 require_once('include/module/dett.php');
 
 	$conf = new conf();
-	$conf->query(mysql_query("SELECT * FROM `".TB_CONF."` WHERE `id`='1'"));
-	$user = new user();
+	$conf->query(mysqli_query($db, "SELECT * FROM `".TB_CONF."` WHERE `id`='1'"));
+	$user = new user($db);
 	$user->sessionName('login','password');
 
-        $obj = new glowna();
+        $obj = new glowna($db);
 
 	$theme = $conf->pobierz("theme");
 
@@ -34,9 +34,9 @@ require_once('include/module/dett.php');
 				}
 			}
 
-            $tresc = @htmlspecialchars(mysql_real_escape_string($_POST['tresc']));
-            $tytul = @htmlspecialchars(mysql_real_escape_string($_POST['tytul']));
-            $zrodlo = @htmlspecialchars(mysql_real_escape_string($_POST['zrodlo']));
+            $tresc = @htmlspecialchars(mysqli_real_escape_string($db, $_POST['tresc']));
+            $tytul = @htmlspecialchars(mysqli_real_escape_string($db, $_POST['tytul']));
+            $zrodlo = @htmlspecialchars(mysqli_real_escape_string($db, $_POST['zrodlo']));
             $autor = $user->userInfo("id");
             $data = date('Y-m-d H:i:s');
 
@@ -85,7 +85,7 @@ require_once('include/module/dett.php');
 			//$image->save($uploaddir,IMAGETYPE_PNG);
 
 
-			//$wykonaj = mysql_query("INSERT INTO `shity` ( `content`, `title` , `img`, `source`, `author`, `data`, `type`) VALUES ('$tresc', '$tytul' , '$uploaddir', '$zrodlo', '$autor', '$data', 'wiedz')");
+			//$wykonaj = mysqli_query($db, "INSERT INTO `shity` ( `content`, `title` , `img`, `source`, `author`, `data`, `type`) VALUES ('$tresc', '$tytul' , '$uploaddir', '$zrodlo', '$autor', '$data', 'wiedz')");
 			echo $content->getValue("dodaj", "dodano");
 			echo '<br /><a href="index.php">&laquo; ' . $content->getValue("global", "glowna") . '</a>';
 

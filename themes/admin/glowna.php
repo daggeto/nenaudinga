@@ -7,7 +7,7 @@
 	
 	$flash_name = 'film';
 	
-if(mysql_num_rows($query)) {
+if(mysqli_num_rows($query)) {
 //SZUKAJKA
 echo '<form action="glowna.php" method="post">
 <table>
@@ -20,13 +20,13 @@ echo '<form action="glowna.php" method="post">
 </form>';
 
 if (isset($_POST['szukaj'])) {
-	$query_search = mysql_query("SELECT * FROM `".$img_table."` WHERE `id`='".$_POST['id_obrazka']."' AND `is_waiting`='0'");
-       if(mysql_num_rows($query_search) < 1) {		
+	$query_search = mysqli_query($db, "SELECT * FROM `".$img_table."` WHERE `id`='".$_POST['id_obrazka']."' AND `is_waiting`='0'");
+       if(mysqli_num_rows($query_search) < 1) {
 		echo '<span class="wynik_wyszukiwania">Wynik wyszukiwania:</span><br/>Nie znaleziono takiego obiektu.<br/><br/>';
 		}
 		else {
-		$img = mysql_fetch_array($query_search);
-		$author = mysql_fetch_array(mysql_query("SELECT * FROM `user` WHERE `id`='".$img['author']."'"));
+		$img = mysqli_fetch_array($query_search);
+		$author = mysqli_fetch_array(mysqli_query($db, "SELECT * FROM `user` WHERE `id`='".$img['author']."'"));
 		if($obj->isImage($img['type'])) {
 			echo '<span class="wynik_wyszukiwania">Wynik wyszukiwania:</span> 
 			<table width="100%" CELLPADDING="2px" class="tabela">
@@ -59,9 +59,9 @@ echo '<table width="100%" CELLPADDING="2px" class="tabela">
 <tr class="tytul">
 <td width="280px">Tytuł</td> <td>Autor</td> <td>Źródło</td> <td>Data</td> <td width="60px">Akcje</td>
 </tr>';
-if(mysql_num_rows($query)) {
-	while($img = mysql_fetch_array($query)) {
-	$author = mysql_fetch_array(mysql_query("SELECT * FROM `user` WHERE `id`='".$img['author']."'"));
+if(mysqli_num_rows($query)) {
+	while($img = mysqli_fetch_array($query)) {
+	$author = mysqli_fetch_array(mysqli_query($db, "SELECT * FROM `user` WHERE `id`='".$img['author']."'"));
 	if($obj->isImage($img['type'])) {
 	echo '<tr>
 	<td>'.$img['title'].'</td> <td>'.$author['login'].'</td> <td>'.$img['source'].'</td> <td>'.$img['data'].'</td>

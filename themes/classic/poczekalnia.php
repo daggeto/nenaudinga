@@ -6,8 +6,8 @@
 	
 	$img_name = 'obrazek';
 	$flash_name = 'film';
-	if(mysql_num_rows($query)) {
-		while($img = mysql_fetch_array($query)) {
+	if(mysqli_num_rows($query)) {
+		while($img = mysqli_fetch_array($query)) {
 			if($img['type'] == $img_name) {
 				if($conf->pobierz('img_title')) echo'<div class="img_title"><a href="obrazek.php?'.$img['id'].'">'.$img['title'].'</a></div>';
 				echo'<div class="shit">

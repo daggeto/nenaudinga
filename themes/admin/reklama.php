@@ -13,9 +13,9 @@
 </table>
 							<input type="submit" name="add_next" value="Dodaj następną" class="button_mini" />
 <?php
-$pob_rekl = mysql_query("SELECT * FROM `reklama`");
+$pob_rekl = mysqli_query($db, "SELECT * FROM `reklama`");
 $i = 0;
-while($rekl = mysql_fetch_array($pob_rekl)) {
+while($rekl = mysqli_fetch_array($pob_rekl)) {
 echo'
 <table class="shit">
 					<colgroup>

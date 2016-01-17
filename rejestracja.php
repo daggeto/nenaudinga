@@ -8,11 +8,11 @@ require_once('include/module/Content.class.php');
 require_once('include/module/dett.php');
 
 	$conf = new conf();
-	$conf->query(mysql_query("SELECT * FROM `".TB_CONF."` WHERE `id`='1'"));
+	$conf->query(mysqli_query($db, "SELECT * FROM `".TB_CONF."` WHERE `id`='1'"));
 
-        $obj = new glowna();
+        $obj = new glowna($db);
 
-        $user = new user();
+        $user = new user($db);
 	$user->sessionName('login','password');
 
         $theme = $conf->pobierz("theme");
@@ -29,12 +29,12 @@ if (isset($_POST['submit'])) {
 		if($_SESSION['security_code'] == $_POST['security_code']) {
 			if(isset($_POST['regulamin'])) {
 				if($_POST['password']==$_POST['password2']) {
-					$account =  htmlspecialchars(mysql_real_escape_string($_POST['login']));      
+					$account =  htmlspecialchars(mysqli_real_escape_string($db, $_POST['login']));
 					$password = md5($_POST['password']);
-					$email = htmlspecialchars(mysql_real_escape_string(($_POST['email'])));
+					$email = htmlspecialchars(mysqli_real_escape_string($db, ($_POST['email'])));
 					if($conf->pobierz('req_code')) $code = rand(10000000,99999999);
 					else $code = 0;
-					$is_exists = mysql_num_rows(mysql_query("SELECT * FROM `user` WHERE login = '$account'"));
+					$is_exists = mysqli_num_rows(mysqli_query($db, "SELECT * FROM `user` WHERE login = '$account'"));
 					if($is_exists == 0) {
 						$to = $email;
 						$subject = sprintf($content->getValue("rejestracja", "aktywacja"), $conf->pobierz('tytul'));
@@ -43,7 +43,7 @@ if (isset($_POST['submit'])) {
                                                         . "\n\n http://" . $conf->host() ."/activate.php?code=" . $code . "\n\n"
                                                         . sprintf($content->getValue("rejestracja","aktywacjaMsg3"),$conf->pobierz('tytul'));
 						$headers = "FROM: " . sprintf($content->getValue("rejestracja", "aktywacja"), $conf->pobierz('tytul')) . " <no-reply@".$_SERVER['SERVER_NAME'].">";
-						if(!mysql_query("INSERT INTO `user` (`login`,`email`,`haslo`,`code`) VALUES('".$account."','".$email."','".$password."','".$code."')"))
+						if(!mysqli_query($db, "INSERT INTO `user` (`login`,`email`,`haslo`,`code`) VALUES('".$account."','".$email."','".$password."','".$code."')"))
                                                 {
                                                     echo '<p style="color:red;">' . $content->getValue("rejestracja","blad") .'</p>';
                                                 }

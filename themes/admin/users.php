@@ -21,11 +21,11 @@ echo '<form action="" method="post">
 </form>';
 
 if (isset($_POST['szukaj'])) {
-	$login = @htmlspecialchars(mysql_real_escape_string($_POST['login']));
-	$query_search = mysql_query("SELECT * FROM `user` WHERE `login`='".$login."'");
-	$uzytkownik = mysql_fetch_array($query_search);
+	$login = @htmlspecialchars(mysqli_real_escape_string($db, $_POST['login']));
+	$query_search = mysqli_query($db, "SELECT * FROM `user` WHERE `login`='".$login."'");
+	$uzytkownik = mysqli_fetch_array($query_search);
 	if($uzytkownik['ranga']==0) {$ranga='Użytkownik';} elseif($uzytkownik['ranga']==1) {$ranga='Moderator';} elseif($uzytkownik['ranga']==2) {$ranga='Administrator';}
-       if(mysql_num_rows($query_search) < 1){		
+       if(mysqli_num_rows($query_search) < 1){
 		echo '<span class="wynik_wyszukiwania">Wynik wyszukiwania:</span><br/>Nie znaleziono takiego użytkownika.<br/><br/>';
 		}
 		else {
@@ -69,8 +69,8 @@ echo '<table width="100%" CELLPADDING="2px" class="tabela">
 <td width="280px">Nazwa użytkownika</td> <td>Email</td> <td width="90px">Ranga</td> <td width="55px">Akcje</td>
 </tr>';
 
-if(mysql_num_rows($query)) { 
-	while ($uzytkownik = mysql_fetch_array($query)) {
+if(mysqli_num_rows($query)) {
+	while ($uzytkownik = mysqli_fetch_array($query)) {
 	if($uzytkownik['ranga']==0) {$ranga='Użytkownik';} if($uzytkownik['ranga']==1) {$ranga='Moderator';} if($uzytkownik['ranga']==2) {$ranga='Administrator';}
 	echo '<tr>
 	<td>'.$uzytkownik['login'].'</td> <td>'.$uzytkownik['email'].'</td> <td>'.$ranga.'</td>

@@ -27,11 +27,11 @@ if ($user->verifyLogin()) {
 											}
 										}
 										
-										$tytul = @htmlspecialchars(mysql_real_escape_string($_POST['tytul']));
-										$zrodlo = @htmlspecialchars(mysql_real_escape_string($_POST['zrodlo']));
+										$tytul = @htmlspecialchars(mysqli_real_escape_string($db, $_POST['tytul']));
+										$zrodlo = @htmlspecialchars(mysqli_real_escape_string($db, $_POST['zrodlo']));
 										$autor = $user->userInfo("id");
 										$data = date('Y-m-d H:i:s');
-										$wykonaj = mysql_query("INSERT INTO `shity` (`title`, `img`, `source`, `author`, `data`, `type`) VALUES ('$tytul', '$uploaddir', '$zrodlo', '$autor', '$data', 'obrazek')");
+										$wykonaj = mysqli_query($db, "INSERT INTO `shity` (`title`, `img`, `source`, `author`, `data`, `type`) VALUES ('$tytul', '$uploaddir', '$zrodlo', '$autor', '$data', 'obrazek')");
 
 										echo "Obiekt został dodany!";
 										break;
@@ -98,16 +98,16 @@ if(!$_POST['tytul_filmu'] || !$_POST['adres_filmu']) {
 	echo '<b>Nie wypełniono pola z tytułem lub adresem filmu!</b><br/><a href="dodaj.php?co=film">&laquo; Powrót</a>';
 	}
 	else {
-	$adres_filmu = @htmlspecialchars(mysql_real_escape_string(trim($_POST['adres_filmu'])));
+	$adres_filmu = @htmlspecialchars(mysqli_real_escape_string($db, trim($_POST['adres_filmu'])));
 	if(preg_match('/youtube\.com\/(v\/|watch\?v=)([\w\-]+)/', $adres_filmu))
 	{
-		$tytul = @htmlspecialchars(mysql_real_escape_string($_POST['tytul_filmu']));
+		$tytul = @htmlspecialchars(mysqli_real_escape_string($db, $_POST['tytul_filmu']));
 		$adres_filmu = preg_replace('#&feature=.*#', '',$adres_filmu);
 		$autor = $user->userInfo("id");
 		$data = date('Y-m-d H:i:s');
 	
 		$zapytanie = "INSERT INTO `shity` (`title`, `img`, `source`, `author`, `data`, `type`) VALUES ('$tytul', '$adres_filmu', 'YouTube', '$autor', '$data', 'film')"; 
-	    $wykonaj = mysql_query($zapytanie); 
+	    $wykonaj = mysqli_query($db, $zapytanie);
 		echo '<b>Filmik został pomyślnie dodany!</b><br/>
 		<a href="index.php">&laquo; Strona Główna</a>'; 
 	} else {

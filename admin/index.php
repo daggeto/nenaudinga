@@ -8,8 +8,8 @@ require_once('../include/module/admin/user.class.php');
 	$title = 'Przegląd';
 
 	$conf = new conf();
-	$conf->query(mysql_query("SELECT * FROM `conf` WHERE `id`='1'"));
-	$user = new user();
+	$conf->query(mysqli_query($db, "SELECT * FROM `conf` WHERE `id`='1'"));
+	$user = new user($db);
 	$user->sessionName('login','password');
 	
 	if($user->verifyLogin()) {
@@ -18,10 +18,10 @@ require_once('../include/module/admin/user.class.php');
 			header("Location: login.php");
 			}
 		else {
-			$tentego_glowna = mysql_num_rows(mysql_query("SELECT * FROM `$img_table` WHERE `is_waiting`='0'"));
-			$tentego_poczekalnia = mysql_num_rows(mysql_query("SELECT * FROM `$img_table` WHERE `is_waiting`='1'"));
-			$tentego_users = mysql_num_rows(mysql_query("SELECT * FROM `user`"));
-			$tentego_last_user = mysql_fetch_array(mysql_query("SELECT * FROM `user` ORDER BY `id` DESC LIMIT 1"));
+			$tentego_glowna = mysqli_num_rows(mysqli_query($db, "SELECT * FROM `$img_table` WHERE `is_waiting`='0'"));
+			$tentego_poczekalnia = mysqli_num_rows(mysqli_query($db, "SELECT * FROM `$img_table` WHERE `is_waiting`='1'"));
+			$tentego_users = mysqli_num_rows(mysqli_query($db, "SELECT * FROM `user`"));
+			$tentego_last_user = mysqli_fetch_array(mysqli_query($db, "SELECT * FROM `user` ORDER BY `id` DESC LIMIT 1"));
 			}
 		}
 	else header("Location: login.php");

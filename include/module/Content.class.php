@@ -26,7 +26,7 @@ class Content {
         {
           $this->content =  parse_ini_file ($filename, true);
         }else{
-            throw new Exception('File not found ');
+            throw new Exception('File not found:' . $filename);
         }
 
     }

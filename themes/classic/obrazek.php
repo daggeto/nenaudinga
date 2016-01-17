@@ -1,13 +1,13 @@
 <?php
 	$ex = explode("?",$_SERVER['REQUEST_URI']);
 	$id = preg_replace("/[^0-9]/", "", htmlspecialchars($ex[1]));
-	@$query = mysql_query("SELECT * FROM `shity` WHERE `id`='".$id."'");
-	if(mysql_num_rows($query) == 1) {
-		$img = mysql_fetch_array($query);
+	@$query = mysqli_query($db, "SELECT * FROM `shity` WHERE `id`='".$id."'");
+	if(mysqli_num_rows($query) == 1) {
+		$img = mysqli_fetch_array($query);
 		
 		$img_name = 'obrazek';
 		$flash_name = 'film';
-		$author = mysql_fetch_array(mysql_query("SELECT * FROM `user` WHERE `id`='".$img['author']."'"));
+		$author = mysqli_fetch_array(mysqli_query($db, "SELECT * FROM `user` WHERE `id`='".$img['author']."'"));
 			if($img['type'] == $img_name) {
 				if($conf->pobierz('img_title')) echo'<div class="img_title"><a href="#">'.$img['title'].'</a></div>';
 				echo'<div class="shit">

@@ -8,11 +8,11 @@ require_once('include/module/index.class.php');
 require_once('include/module/dett.php');
 
 	$conf = new conf();
-	$conf->query(mysql_query("SELECT * FROM `".TB_CONF."` WHERE `id`='1'"));
-	$user = new user();
+	$conf->query(mysqli_query($db, "SELECT * FROM `".TB_CONF."` WHERE `id`='1'"));
+	$user = new user($db);
 	$user->sessionName('login','password');
 
-        $obj = new glowna();
+        $obj = new glowna($db);
 
 	$theme = $conf->pobierz("theme");
         
@@ -23,7 +23,7 @@ require_once('include/module/dett.php');
 	$info = NULL;
 	if(isset($_GET['code']) && is_numeric($_GET['code'])) {
 		$_GET['code'] = mysql_escape_string($_GET['code']);
-		if(mysql_query("UPDATE `user` SET `code`='0' WHERE code='".$_GET['code']."'")) {
+		if(mysqli_query($db, "UPDATE `user` SET `code`='0' WHERE code='".$_GET['code']."'")) {
                     $info = $content->getValue ("aktywacja", "aktywowane") . '<a href="login.php">' . $content->getValue ("global", "loguj") . '</a>';
                 }
 		else $info = $content->getValue ("aktywacja", "niepowiodlosie");

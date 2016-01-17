@@ -5,8 +5,8 @@ require_once('../include/module/admin/conf.class.php');
 require_once('../include/module/admin/user.class.php');
 
 	$conf = new conf();
-	$conf->query(mysql_query("SELECT * FROM `conf` WHERE `id`='1'"));
-	$user = new user();
+	$conf->query(mysqli_query($db, "SELECT * FROM `conf` WHERE `id`='1'"));
+	$user = new user($db);
 	
 	$user->sessionName('login','password');
 	$user->sessionSet('login','password', 'submit');

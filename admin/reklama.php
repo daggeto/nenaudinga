@@ -8,8 +8,8 @@ require_once('../include/module/admin/user.class.php');
 	$title = 'Reklama';
 
 	$conf = new conf();
-	$conf->query(mysql_query("SELECT * FROM `conf` WHERE `id`='1'"));
-	$user = new user();
+	$conf->query(mysqli_query($db, "SELECT * FROM `conf` WHERE `id`='1'"));
+	$user = new user($db);
 	$user->sessionName('login','password');
 	
 	if($user->verifyLogin()) {
@@ -19,22 +19,22 @@ require_once('../include/module/admin/user.class.php');
 			}
 		else {
 			if(isset($_POST['save']) && ($_POST['token'] == $_SESSION['token'])) { 
-			$licz = mysql_num_rows(mysql_query("SELECT * FROM `reklama`"));
+			$licz = mysqli_num_rows(mysqli_query($db, "SELECT * FROM `reklama`"));
 			for($l = 0; $l<$licz; $l++) {
-			mysql_query("UPDATE `reklama` SET `kod` = '".$_POST['kod_reklamy_'.$l]."', `pod_obrazkiem` = '".$_POST['pod_obrazkiem_'.$l]."' WHERE `id`='".$_POST['id_'.$l]."'");
+			mysqli_query($db, "UPDATE `reklama` SET `kod` = '".$_POST['kod_reklamy_'.$l]."', `pod_obrazkiem` = '".$_POST['pod_obrazkiem_'.$l]."' WHERE `id`='".$_POST['id_'.$l]."'");
 			}
-			mysql_query("UPDATE `conf` SET `reklama`='".$_POST['reklama']."'");
+			mysqli_query($db, "UPDATE `conf` SET `reklama`='".$_POST['reklama']."'");
 			$msg = 'Reklama została zaktualizowana.';
 			header('Location: reklama.php?msg='.$msg);
 			}
 			else if(isset($_GET['del'])) {
-				mysql_query("DELETE FROM `reklama` WHERE `id`='".$_GET['del']."'");
+				mysqli_query($db, "DELETE FROM `reklama` WHERE `id`='".$_GET['del']."'");
 				$msg = 'Reklama została usunięta.';
 				header('Location: reklama.php?msg='.$msg);
 			}
 			else {
 			if(isset($_POST['add_next'])) {
-				mysql_query("INSERT INTO `reklama` (`kod`,`pod_obrazkiem`) VALUES ('',0)");
+				mysqli_query($db, "INSERT INTO `reklama` (`kod`,`pod_obrazkiem`) VALUES ('',0)");
 				$msg = 'Reklama została dodana.';
 				header('Location: reklama.php?msg='.$msg);
 			}

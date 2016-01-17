@@ -9,9 +9,9 @@ require_once('../include/module/admin/ustawienia.class.php');
 	$title = 'Ustawienia';
 	
 	$conf = new conf();
-	$conf->query(mysql_query("SELECT * FROM `conf` WHERE `id`='1'"));
+	$conf->query(mysqli_query($db, "SELECT * FROM `conf` WHERE `id`='1'"));
 	$ustawienia = new ustawienia();
-	$user = new user();
+	$user = new user($db);
 	$user->sessionName('login','password');
 	
 	if($user->verifyLogin()) {
@@ -20,7 +20,7 @@ require_once('../include/module/admin/ustawienia.class.php');
 		else {	
 			if(isset($_POST['save'])) { 
 				if($_POST['token'] == $_SESSION['token']) {
-					$query = mysql_query("UPDATE `conf` SET `tytul` = '".$_POST['tytul_strony']."', `slogan` = '".$_POST['slogan']."',
+					$query = mysqli_query($db, "UPDATE `conf` SET `tytul` = '".$_POST['tytul_strony']."', `slogan` = '".$_POST['slogan']."',
 					`logo` = '".$_POST['kod_logo']."', `description` = '".$_POST['opis']."', `tags` = '".$_POST['tagi']."',
 					`img_na_strone` = '".$_POST['na_jednej_stronie']."', `regulamin` = '".$_POST['regulamin']."', `email` = '".$_POST['email']."',
 					`max_file_size`='".$_POST['file_size']."', `img_title`='".$_POST['img_title']."', `req_code`='".$_POST['req_code']."',

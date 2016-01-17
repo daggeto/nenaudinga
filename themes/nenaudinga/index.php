@@ -4,10 +4,10 @@
 	$obj->ileNaStrone($conf->pobierz('img_na_strone'));
 	$query = $obj->pobierz();
 
-	if(mysql_num_rows($query)) {
-		while($img = mysql_fetch_array($query)) {
+	if(mysqli_num_rows($query)) {
+		while($img = mysqli_fetch_array($query)) {
 			if($obj->isImage($img['type'])) {
-                                $author = mysql_fetch_array(mysql_query("SELECT * FROM `user` WHERE `id`='".$img['author']."'"));
+                                $author = mysqli_fetch_array(mysqli_query($db, "SELECT * FROM `user` WHERE `id`='".$img['author']."'"));
 				if($conf->pobierz('img_title')) echo'<div class="img_title"><a href="obrazek.php?'.$img['id'].'">'.$img['title'].'</a></div>';
 				echo'<div class="shit">
                                         <a href="obrazek.php?'.$img['id'].'"><img src="'.$img['img'].'" alt="'.$img['title'].'" /></a>'
@@ -22,7 +22,7 @@
                                         .'</div>'
                                     .'</div>';
 				}
-			if($conf->pobierz('reklama')) adModule();	
+			if($conf->pobierz('reklama')) adModule($db);
 		}
 	}
 	else {

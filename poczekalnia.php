@@ -10,9 +10,9 @@ require_once('include/module/dett.php');
 require_once('include/add-ons/adModule.php');
 
 	$conf = new conf();
-	$conf->query(mysql_query("SELECT * FROM `".TB_CONF."` WHERE `id`='1'"));
-	$obj = new glowna();
-	$user = new user();
+	$conf->query(mysqli_query($db, "SELECT * FROM `".TB_CONF."` WHERE `id`='1'"));
+	$obj = new glowna($db);
+	$user = new user($db);
 	$user->sessionName('login','password');
 	
 	$theme = $conf->pobierz("theme");

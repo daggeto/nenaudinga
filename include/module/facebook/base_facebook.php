@@ -500,7 +500,7 @@ abstract class BaseFacebook
    *
    * @return string the UID if available.
    */
-  public function getUser() {
+  public function getuser($db) {
     if ($this->user !== null) {
       // we've already determined this and cached the value.
       return $this->user;

@@ -8,11 +8,11 @@ require_once('include/module/Content.class.php');
 require_once('include/module/dett.php');
 
 	$conf = new conf();
-	$conf->query(mysql_query("SELECT * FROM `".TB_CONF."` WHERE `id`='1'"));
+	$conf->query(mysqli_query($db, "SELECT * FROM `".TB_CONF."` WHERE `id`='1'"));
 	
-        $obj = new glowna();
+        $obj = new glowna($db);
 
-        $user = new user();
+        $user = new user($db);
 	$user->sessionName('login','password');
 	
 	$theme = $conf->pobierz("theme");
@@ -24,9 +24,9 @@ require_once('include/module/dett.php');
 	$ex = explode("?",$_SERVER['REQUEST_URI']);
 	$ex = explode("&", $ex[1]);
 	$id = preg_replace("/[^0-9]/", "", htmlspecialchars($ex[0]));
-	@$query = mysql_query("SELECT * FROM `shity` WHERE `id`='".$id."'");
-	if(mysql_num_rows($query) == 1) {
-		$item = mysql_fetch_array($query);
+	@$query = mysqli_query($db, "SELECT * FROM `shity` WHERE `id`='".$id."'");
+	if(mysqli_num_rows($query) == 1) {
+		$item = mysqli_fetch_array($query);
 	}
 	
 	$title = ' - '.@$item['title'];

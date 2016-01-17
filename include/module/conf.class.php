@@ -6,8 +6,7 @@
 		var $pobierz;
 		
 		function query($q) {
-			$this->db_query = $q;
-			$this->pobierz = mysql_fetch_array($this->db_query);
+			$this->pobierz = mysqli_fetch_array($q);
 		}
 		function pobierz($row) {
 			return $this->pobierz[$row];

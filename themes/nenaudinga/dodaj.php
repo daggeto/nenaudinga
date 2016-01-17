@@ -11,9 +11,9 @@ if ($user->verifyLogin()) {
             }
         }
 
-        $tresc = @htmlspecialchars(mysql_real_escape_string($_POST['tresc']));
-        $tytul = @htmlspecialchars(mysql_real_escape_string($_POST['tytul']));
-        $zrodlo = @htmlspecialchars(mysql_real_escape_string($_POST['zrodlo']));
+        $tresc = @htmlspecialchars(mysqli_real_escape_string($db, $_POST['tresc']));
+        $tytul = @htmlspecialchars(mysqli_real_escape_string($db, $_POST['tytul']));
+        $zrodlo = @htmlspecialchars(mysqli_real_escape_string($db, $_POST['zrodlo']));
         $autor = $user->userInfo("id");
         $data = date('Y-m-d H:i:s');
 
@@ -63,12 +63,12 @@ if ($user->verifyLogin()) {
 
         $data_img = date("YmdHis");
         $uploaddir = 'img/upload/'. $_POST['type'].'/' . $tytul . '_' . $data_img . '.png';
-
         $image->save($uploaddir,IMAGETYPE_PNG);
 
 
-        $wykonaj = mysql_query("INSERT INTO `shity` ( `content`, `title` , `img`, `source`, `author`, `data`, `type`) VALUES ('$tresc', '$tytul' , '$uploaddir', '$zrodlo', '$autor', '$data', '$imageType')");
-        echo $content->getValue("dodaj", "dodano");
+        $wykonaj = mysqli_query($db, "INSERT INTO `shity` ( `content`, `title` , `img`, `source`, `author`, `data`, `type`) VALUES ('$tresc', '$tytul' , '$uploaddir', '$zrodlo', '$autor', '$data', '$imageType')");
+
+      echo $content->getValue("dodaj", "dodano");
         echo '<br /><a href="index.php">&laquo; ' . $content->getValue("global", "glowna") . '</a>';
 
         }

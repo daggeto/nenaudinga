@@ -2,11 +2,11 @@
 	$ex = explode("?",$_SERVER['REQUEST_URI']);
 	$ex = explode("&", $ex[1]);
 	$id = preg_replace("/[^0-9]/", "", htmlspecialchars($ex[0]));
-	@$query = mysql_query("SELECT * FROM `shity` WHERE `id`='".$id."'");
-	if(mysql_num_rows($query) == 1) {
-		$img = mysql_fetch_array($query);
+	@$query = mysqli_query($db, "SELECT * FROM `shity` WHERE `id`='".$id."'");
+	if(mysqli_num_rows($query) == 1) {
+		$img = mysqli_fetch_array($query);
 
-		$author = mysql_fetch_array(mysql_query("SELECT * FROM `user` WHERE `id`='".$img['author']."'"));
+		$author = mysqli_fetch_array(mysqli_query($db, "SELECT * FROM `user` WHERE `id`='".$img['author']."'"));
                         if($conf->pobierz('img_title')) echo'<div class="img_title"><a href="#">'.$img['title'].'</a></div>';
                         echo'<div class="shit">
                         <img src="'.$img['img'].'" alt="'.$img['title'].'" />'

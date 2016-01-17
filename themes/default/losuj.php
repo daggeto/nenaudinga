@@ -1,7 +1,7 @@
 <?php
 
-	$img = mysql_fetch_array(mysql_query("SELECT * FROM `shity` WHERE `is_waiting`='0' ORDER BY RAND() LIMIT 1"));
-	$author = mysql_fetch_array(mysql_query("SELECT * FROM `user` WHERE `id`='".$img['author']."'"));
+	$img = mysqli_fetch_array(mysqli_query($db, "SELECT * FROM `shity` WHERE `is_waiting`='0' ORDER BY RAND() LIMIT 1"));
+	$author = mysqli_fetch_array(mysqli_query($db, "SELECT * FROM `user` WHERE `id`='".$img['author']."'"));
 	$img_name = 'obrazek';
 	$flash_name = 'film';
 	list($records) = $img;
