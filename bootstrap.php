@@ -4,10 +4,10 @@
 	use Doctrine\ORM\Tools\Setup;
 	use Doctrine\ORM\EntityManager;
 
-	require_once "vendor/autoload.php";
+	require "vendor/autoload.php";
 
 	$isDevMode = true;
-	$config = Setup::createAnnotationMetadataConfiguration(array(__DIR__.'\persistance'), $isDevMode);
+	$config = Setup::createAnnotationMetadataConfiguration(array(__DIR__.'\src\persistance'), $isDevMode);
 
 	$conn = array(
 		'dbname' => 'nenaudinga',
@@ -19,5 +19,4 @@
 
 	$entityManager = EntityManager::create($conn, $config);
 
-	require_once('persistance/config.php');
 ?>

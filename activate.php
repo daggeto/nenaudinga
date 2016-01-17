@@ -4,7 +4,7 @@ require_once('bootstrap.php');
 require_once('include/module/conf.class.php');
 require_once('include/module/user.class.php');
 require_once('include/module/Content.class.php');
-require_once('include/module/index.class.php');
+require_once('include/module/Main.class.php');
 require_once('include/module/dett.php');
 
 	$conf = new conf();

@@ -12,13 +12,5 @@
 		function pobierz($row) {
 			return $this->pobierz[$row];
 		}
-		function host() {
-			return $_SERVER['HTTP_HOST'].rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-		}
-		function img_url($i) {
-			return 'obrazek.php?'.$i;
-		}
 	}
-			
-	
 ?>

@@ -1,5 +1,7 @@
 <?php
-class glowna {
+namespace Nenaudinga;
+
+class Main {
 	
 	var $db_query;
 	var $ile;
@@ -106,4 +108,3 @@ class glowna {
 		
 		
 }
-?>

@@ -1,4 +1,5 @@
 <?php
+namespace Nenaudinga;
 
 /**
  * @Entity @Table(name="config")
@@ -53,6 +54,13 @@ class Config
 
     /** @Column(type="string", length=64) **/
     protected $theme;
+
+    function host() {
+        return $_SERVER['HTTP_HOST'].rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+    }
+    function img_url($i) {
+        return 'obrazek.php?'.$i;
+    }
 
     public function getId()
     {
