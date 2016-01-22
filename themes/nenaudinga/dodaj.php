@@ -63,6 +63,7 @@ if ($user->verifyLogin()) {
 
         $data_img = date("YmdHis");
         $uploaddir = 'img/upload/'. $_POST['type'].'/' . $tytul . '_' . $data_img . '.png';
+
         $image->save($uploaddir,IMAGETYPE_PNG);
 
 

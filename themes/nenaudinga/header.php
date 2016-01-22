@@ -6,7 +6,7 @@
 	<meta name="keywords" content="<?php echo $conf->pobierz("tags"); ?>" />
 	<?php
 		$ex = explode("/",$_SERVER['SCRIPT_NAME']);
-		if($ex[1]=='obrazek.php' || $ex[2]=='obrazek.php') {
+		if($ex[1]=='obrazek.php') {
                     echo '<meta property="og:title" content="' . $item['content'] . '" />';
                     echo '<meta property="og:type" content="website" />';
                     echo '<meta property="og:url" content="http://'.$conf->host().'/obrazek.php?'.$item['id'].'" />';
